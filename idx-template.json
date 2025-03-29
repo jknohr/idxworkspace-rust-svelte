@@ -1,21 +1,10 @@
 // idx-template.json
+// Metadata for the IDX template creation UI.
 {
-  "name": "NeuralUI / Spine Project",
-  "description": "A custom template for developing the NeuralUI frontend and Spine C++ backend, including AI/ML dependencies.",
-  "icon": "https://www.gstatic.com/images/branding/productlogos/idx/v1/192px.svg", // Optional: Replace with your project's icon URL (PNG/SVG)
-  "params": [
-    // Add user-configurable parameters here if needed later.
-    // Example: Choosing Node.js version, enabling optional features, etc.
-    // {
-    //   "id": "nodeVersion",
-    //   "name": "Node.js Version",
-    //   "type": "enum",
-    //   "default": "21",
-    //   "options": {
-    //     "21": "Node.js 21",
-    //     "23": "Node.js 23"
-    //   },
-    //   "required": true
-    // }
-  ]
+  "name": "NeuralUI / Spine Project (Node/Rust Workspace)",
+  "description": "Template for NeuralUI (Node.js 21) frontend and Spine (Rust Workspace) backend. Includes tools for C++/AI/ML dependencies (LibTorch, TF, GGML) requiring post-creation setup via included scripts and dev.nix modification.",
+  // Optional: Replace with your project's icon URL (publicly accessible PNG/SVG)
+  "icon": "https://www.gstatic.com/images/branding/productlogos/idx/v1/192px.svg",
+  // No user-configurable parameters defined for this template yet.
+  "params": []
 }
