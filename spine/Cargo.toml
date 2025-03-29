@@ -1,1 +1,92 @@
+[package]
+name = "spine"
+version = "0.1.0"
+edition = "2021"
+description = "Spine - a framework for building and running intelligent agents"
+authors = ["Spine Team"]
+license = "Apache-2.0"
 
+[workspace]
+members = [
+    "crates/*",
+]
+
+[workspace.dependencies]
+# Common dependencies with fixed versions
+tokio = { version = "1.35", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+async-trait = "0.1"
+anyhow = "1.0"
+jsonrpc-core = "18.0"
+wasmtime = "13.0"
+reqwest = { version = "0.11", features = ["json"] }
+futures = "0.3"
+clap = { version = "4.4", features = ["derive"] }
+config = "0.13"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+log = "0.4"
+env_logger = "0.10"
+convert_case = "0.6"
+futures-util = "0.3"
+hyper = { version = "0.14", features = ["full"] }
+proc-macro2 = "1.0"
+quote = "1.0"
+rand = "0.8"
+syn = { version = "2.0", features = ["full", "extra-traits"] }
+tokio-stream = "0.1"
+tokio-tungstenite = "0.20"
+tungstenite = "0.20"
+
+[features]
+# When the wasm-support feature is enabled, WasmEdge support is included
+default = ["wasm-support"]
+# This feature enables WasmEdge support in the relevant crates
+wasm-support = ["spine-wasm/wasmedge", "spine-runtime/wasmedge"]
+# Minimal build with no WasmEdge dependencies
+minimal = []
+
+[dependencies]
+spine-core = { path = "crates/spine-core" }
+spine-mcp = { path = "crates/spine-mcp", default-features = false }
+spine-mcp-macros = { path = "crates/spine-mcp-macros" }
+spine-router = { path = "crates/spine-router", default-features = false }
+spine-resources = { path = "crates/spine-resources", default-features = false }
+spine-extensions = { path = "crates/spine-extensions", default-features = false }
+spine-security = { path = "crates/spine-security", default-features = false }
+spine-wasm = { path = "crates/spine-wasm", optional = true, default-features = false }
+spine-runtime = { path = "crates/spine-runtime", default-features = false }
+spine-services = { path = "crates/spine-services", default-features = false }
+spine-llm-router = { path = "crates/spine-llm-router", default-features = false }
+spine-data = { path = "crates/spine-data", default-features = false }
+spine-agent-sdk = { path = "crates/spine-agent-sdk", default-features = false }
+spine-context = { path = "crates/spine-context", default-features = false }
+
+# Common dependencies
+tokio = { workspace = true }
+log = { workspace = true }
+anyhow = { workspace = true }
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.release]
+opt-level = 3
+debug = false
+strip = "debuginfo"
+lto = "thin"
+codegen-units = 1
+
+# Create a fast-optimized dev profile for improved performance
+[profile.dev.package."*"]
+opt-level = 2
+debug = 1
+
+# Optimize dependencies even in debug builds
+[profile.dev.package.wasmedge-sys]
+opt-level = 3
+debug = false 
